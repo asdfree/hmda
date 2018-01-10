@@ -31,19 +31,11 @@ dbGetQuery( db ,
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
-dbSendQuery( db , 
-	"CREATE FUNCTION 
-		div_noerror(l DOUBLE, r DOUBLE) 
-	RETURNS DOUBLE 
-	EXTERNAL NAME calc.div_noerror" 
-)
 dbGetQuery( db , 
 	"SELECT 
 		actiontype , 
-		div_noerror( 
-			COUNT(*) , 
-			( SELECT COUNT(*) FROM hmda_2015 ) 
-		) AS share_actiontype
+		COUNT(*) / ( SELECT COUNT(*) FROM hmda_2015 ) 
+			AS share_actiontype
 	FROM hmda_2015 
 	GROUP BY actiontype" 
 )
