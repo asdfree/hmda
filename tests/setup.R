@@ -48,12 +48,22 @@ dbGetQuery( db ,
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
-dbGetQuery( db , "SELECT QUANTILE( loanamount , 0.5 ) FROM hmda_2015" )
+RSQLite::initExtension( db )
+
+dbGetQuery( db , 
+	"SELECT 
+		LOWER_QUARTILE( loanamount ) , 
+		MEDIAN( loanamount ) , 
+		UPPER_QUARTILE( loanamount ) 
+	FROM hmda_2015" 
+)
 
 dbGetQuery( db , 
 	"SELECT 
 		loanpurpose , 
-		QUANTILE( loanamount , 0.5 ) AS median_loanamount
+		LOWER_QUARTILE( loanamount ) AS lower_quartile_loanamount , 
+		MEDIAN( loanamount ) AS median_loanamount , 
+		UPPER_QUARTILE( loanamount ) AS upper_quartile_loanamount
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
@@ -63,18 +73,20 @@ dbGetQuery( db ,
 	FROM hmda_2015
 	WHERE race = 5 AND ethnicity = 2"
 )
+RSQLite::initExtension( db )
+
 dbGetQuery( db , 
 	"SELECT 
-		VAR_SAMP( loanamount ) , 
-		STDDEV_SAMP( loanamount ) 
+		VARIANCE( loanamount ) , 
+		STDEV( loanamount ) 
 	FROM hmda_2015" 
 )
 
 dbGetQuery( db , 
 	"SELECT 
 		loanpurpose , 
-		VAR_SAMP( loanamount ) AS var_loanamount ,
-		STDDEV_SAMP( loanamount ) AS stddev_loanamount
+		VARIANCE( loanamount ) AS var_loanamount ,
+		STDEV( loanamount ) AS stddev_loanamount
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
