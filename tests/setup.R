@@ -90,19 +90,6 @@ dbGetQuery( db ,
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
-dbGetQuery( db , 
-	"SELECT 
-		CORR( CAST( multifamily_home AS DOUBLE ) , CAST( loanamount AS DOUBLE ) )
-	FROM hmda_2015" 
-)
-
-dbGetQuery( db , 
-	"SELECT 
-		loanpurpose , 
-		CORR( CAST( multifamily_home AS DOUBLE ) , CAST( loanamount AS DOUBLE ) )
-	FROM hmda_2015 
-	GROUP BY loanpurpose" 
-)
 library(dplyr)
 dplyr_db <- dplyr::src_sqlite( dbdir )
 hmda_tbl <- tbl( dplyr_db , 'hmda_2015' )
