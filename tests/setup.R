@@ -92,7 +92,7 @@ dbGetQuery( db ,
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
-hmda_three_columns_df <- 
+hmda_slim_df <- 
 	dbGetQuery( db , 
 		"SELECT 
 			loanamount , 
@@ -101,14 +101,15 @@ hmda_three_columns_df <-
 		FROM hmda_2015" 
 	)
 
-t.test( loanamount ~ multifamily_home , hmda_three_columns_df )
-this_table <- table( hmda_three_columns_df[ , c( "multifamily_home" , "actiontype" ) ] )
+t.test( loanamount ~ multifamily_home , hmda_slim_df )
+this_table <-
+	table( hmda_slim_df[ , c( "multifamily_home" , "actiontype" ) ] )
 
 chisq.test( this_table )
 glm_result <- 
 	glm( 
 		loanamount ~ multifamily_home + actiontype , 
-		data = hmda_three_columns_df
+		data = hmda_slim_df
 	)
 
 summary( glm_result )
