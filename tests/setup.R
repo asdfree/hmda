@@ -92,6 +92,26 @@ dbGetQuery( db ,
 	FROM hmda_2015 
 	GROUP BY loanpurpose" 
 )
+hmda_three_columns_df <- 
+	dbGetQuery( db , 
+		"SELECT 
+			loanamount , 
+			multifamily_home ,
+			actiontype
+		FROM hmda_2015" 
+	)
+
+t.test( loanamount ~ multifamily_home , hmda_three_columns_df )
+this_table <- table( hmda_three_columns_df[ , c( "multifamily_home" , "actiontype" ) ] )
+
+chisq.test( this_table )
+glm_result <- 
+	glm( 
+		loanamount ~ multifamily_home + actiontype , 
+		data = hmda_three_columns_df
+	)
+
+summary( glm_result )
 library(dplyr)
 library(dbplyr)
 dplyr_db <- dplyr::src_sqlite( dbdir )
