@@ -93,6 +93,7 @@ dbGetQuery( db ,
 	GROUP BY loanpurpose" 
 )
 library(dplyr)
+library(dbplyr)
 dplyr_db <- dplyr::src_sqlite( dbdir )
 hmda_tbl <- tbl( dplyr_db , 'hmda_2015' )
 hmda_tbl %>%
