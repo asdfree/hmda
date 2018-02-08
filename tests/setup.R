@@ -7,7 +7,7 @@ this_sample_break <- Sys.getenv( "this_sample_break" )
 hmda_cat <- get_catalog( "hmda" , output_dir = file.path( getwd() ) )
 record_categories <- ceiling( seq( nrow( hmda_cat ) ) / ceiling( nrow( hmda_cat ) / 18 ) )
 hmda_cat <- hmda_cat[ record_categories == this_sample_break , ]
-lodown( "hmda" , hmda_cat )
+hmda_cat <- lodown( "hmda" , hmda_cat )
 if( any( hmda_cat$year == 2015 & hmda_cat$type == 'hmda_lar' ) ){
 library(DBI)
 dbdir <- file.path( getwd() , "SQLite.db" )
