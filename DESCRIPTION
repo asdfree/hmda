@@ -4,7 +4,7 @@ Title: hmda
 Version: 0.1.0
 Author: Anthony Joseph Damico
 Maintainer: Anthony Joseph Damico <ajdamico@gmail.com>
-Description: A continuous integration package, tested on  ajdamico/lodown commit efa6e9f272a1e8bcb0b533f867774985a232bf9c
+Description: A continuous integration package, tested on ajdamico/asdfree commit 92048e537fe8c95c8940fa0b6efcb3b7732a565c ajdamico/lodown commit efa6e9f272a1e8bcb0b533f867774985a232bf9c
 License: GPL-3
 Imports: DBI, lodown, dplyr, dbplyr
 Encoding: UTF-8
